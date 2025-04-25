@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Layout from '../components/Layout';
-import MainContent from '../components/MainContent';
+import MainContent from '../pages/principal';
 import VelasContent from '../pages/usuario/velas';
 import DecorativosContent from '../pages/usuario/decorativos';
 import WaxMeltsContent from '../pages/usuario/wax-melts';
