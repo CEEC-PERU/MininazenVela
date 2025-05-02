@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import newsletterImage from '../../public/wes.jpg'; // Asegúrate de tener la imagen en esta ruta
+import newsletterImage from '../../public/wes.jpg'; 
 
 const Newsletter = () => (
   <section className="newsletter-section py-16">

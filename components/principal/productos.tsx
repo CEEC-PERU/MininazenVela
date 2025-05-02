@@ -1,3 +1,4 @@
+// components/principal/productos.tsx
 'use client';
 import React from 'react';
 
@@ -12,8 +13,8 @@ const productosData = [
   { id: 8, nombre: 'Producto H', precio: '$55.75', imagen: '/decorativos.jpg' },
 ];
 
-const ProductosDestacados = () => (
-  <section className="py-16 bg-gray-50">
+const ProductosDestacados = React.forwardRef<HTMLDivElement>((_, ref) => (
+  <section ref={ref} id="productos-destacados" className="py-16 bg-gray-50">
     <div className="container mx-auto px-4">
       <h2 style={{
         fontSize: '3.6rem',
@@ -46,15 +47,16 @@ const ProductosDestacados = () => (
       </div>
       <div className="text-center mt-8">
         <a
-          href="#"
-          onClick={(e) => e.preventDefault()}
-          className="verTodosProductos__boton" 
+          href="#productos-destacados"
+          className="verTodosProductos__boton"
         >
           Ver Todos los Productos
         </a>
       </div>
     </div>
   </section>
-);
+));
+
+ProductosDestacados.displayName = 'ProductosDestacados';
 
 export default ProductosDestacados;
