@@ -1,4 +1,3 @@
-// components/principal/heroe.tsx
 'use client';
 import React from 'react';
 

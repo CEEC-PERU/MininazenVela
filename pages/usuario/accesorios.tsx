@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { FilterSidebar } from "@/components/filter-sidebar"
 import { ProductGrid } from "@/components/product-grid"
 import { PageHeader } from "@/components/page-header"
+import Layout from "@/components/Layout"
 
 const mockProducts = [
   {
@@ -246,7 +247,7 @@ const mockProducts = [
     colocar: "individual-oval",
     estilo: "concha-de-caracol-2",
     tamano: "rectangulo-largo",
-  },{
+  }, {
     id: "15",
     name: "Shell Candle Set",
     price: 39.99,
@@ -307,9 +308,9 @@ export default function AccesoriosPage() {
 
   const handleFilterChange = useCallback((filters: Record<string, any>) => {
     setActiveFilters(filters)
-    setCurrentPage(1) // Resetear a la primera página cuando se cambian los filtros
+    setCurrentPage(1)
   }, [])
-
+  
   useEffect(() => {
     // Filtrar productos basados en los filtros activos
     let result = [...mockProducts]
@@ -402,9 +403,8 @@ export default function AccesoriosPage() {
                   <button
                     key={index}
                     onClick={() => goToPage(index + 1)}
-                    className={`pagination-number ${
-                      currentPage === index + 1 ? "active" : ""
-                    }`}
+                    className={`pagination-number ${currentPage === index + 1 ? "active" : ""
+                      }`}
                   >
                     {index + 1}
                   </button>

@@ -1,3 +1,4 @@
+// components/header.tsx
 "use client"
 
 import type React from "react"
@@ -70,8 +71,8 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
               <Image
                 src="/icono.png"
                 alt="Logo Envíos y Devoluciones"
-                width={59} 
-                height={50} 
+                width={59}
+                height={50}
                 className="inline-block align-middle"
                 style={{ maxWidth: 'none', height: 'auto' }}
               />

@@ -3,7 +3,8 @@
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
 
-export interface CartItem {
+// Definir el tipo para los items del carrito
+interface CartItem {
   id: string
   name: string
   price: number
@@ -11,140 +12,163 @@ export interface CartItem {
   quantity: number
 }
 
+// Definir el tipo para el contexto del carrito
 interface CartContextType {
   items: CartItem[]
-  addToCart: (product: Omit<CartItem, "quantity">) => void
+  itemCount: number
+  addToCart: (item: CartItem) => void
   removeFromCart: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
-  itemCount: number
   isCartOpen: boolean
-  setIsCartOpen: (isOpen: boolean) => void
-  lastAddedItem: CartItem | null
+  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>
   showNotification: boolean
-  setShowNotification: (show: boolean) => void
-  isItemInCart: (id: string) => boolean
+  lastAddedItem: CartItem | null
 }
 
+// Crear el contexto
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+// Proveedor del contexto
+export function CartProvider({ children }: { children: React.ReactNode }) {
+  // Intentar cargar el estado del carrito desde localStorage al iniciar
   const [items, setItems] = useState<CartItem[]>([])
   const [itemCount, setItemCount] = useState(0)
   const [isCartOpen, setIsCartOpen] = useState(false)
-  const [lastAddedItem, setLastAddedItem] = useState<CartItem | null>(null)
   const [showNotification, setShowNotification] = useState(false)
+  const [lastAddedItem, setLastAddedItem] = useState<CartItem | null>(null)
 
-  // Cargar carrito desde localStorage al iniciar
+  // Cargar el estado del carrito desde localStorage al iniciar
   useEffect(() => {
-    const savedCart = localStorage.getItem("cart")
-    if (savedCart) {
-      try {
-        const parsedCart = JSON.parse(savedCart)
-        setItems(parsedCart)
-      } catch (error) {
-        console.error("Error parsing cart from localStorage:", error)
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("cart")
+      if (savedCart) {
+        try {
+          const parsedCart = JSON.parse(savedCart)
+          setItems(parsedCart)
+          const count = parsedCart.reduce((total: number, item: CartItem) => total + item.quantity, 0)
+          setItemCount(count)
+        } catch (error) {
+          console.error("Error parsing cart from localStorage:", error)
+        }
       }
     }
   }, [])
 
-  // Guardar carrito en localStorage cuando cambia
+  // Guardar el estado del carrito en localStorage cuando cambia
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(items))
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cart", JSON.stringify(items))
+    }
+  }, [items])
 
-    // Actualizar contador de items
+  // Actualizar el contador de items cuando cambia el carrito
+  useEffect(() => {
     const count = items.reduce((total, item) => total + item.quantity, 0)
     setItemCount(count)
   }, [items])
 
-  // Cerrar notificación después de un tiempo
-  useEffect(() => {
-    if (showNotification) {
-      const timer = setTimeout(() => {
-        setShowNotification(false)
-      }, 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [showNotification])
-
-  const addToCart = (product: Omit<CartItem, "quantity">) => {
+  // Añadir un item al carrito
+  const addToCart = (newItem: CartItem) => {
     setItems((prevItems) => {
-      // Verificar si el producto ya está en el carrito
-      const existingItemIndex = prevItems.findIndex((item) => item.id === product.id)
+      // Verificar si el item ya existe en el carrito
+      const existingItemIndex = prevItems.findIndex((item) => item.id === newItem.id)
 
       let updatedItems
+
       if (existingItemIndex >= 0) {
-        // Si ya existe, incrementar la cantidad
+        // Si existe, actualizar la cantidad
         updatedItems = [...prevItems]
-        updatedItems[existingItemIndex] = {
-          ...updatedItems[existingItemIndex],
-          quantity: updatedItems[existingItemIndex].quantity + 1,
-        }
-        setLastAddedItem(updatedItems[existingItemIndex])
+        updatedItems[existingItemIndex].quantity += newItem.quantity || 1
       } else {
-        // Si no existe, añadirlo con cantidad 1
-        const newItem = { ...product, quantity: 1 }
-        updatedItems = [...prevItems, newItem]
-        setLastAddedItem(newItem)
+        // Si no existe, añadir el nuevo item
+        updatedItems = [...prevItems, { ...newItem, quantity: newItem.quantity || 1 }]
       }
 
-      // Mostrar notificación
-      setShowNotification(true)
-      // Abrir el carrito brevemente
-      setIsCartOpen(true)
-      setTimeout(() => setIsCartOpen(false), 3000)
+      // Guardar en localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cart", JSON.stringify(updatedItems))
+      }
+
+      return updatedItems
+    })
+
+    // Mostrar notificación
+    setLastAddedItem(newItem)
+    setShowNotification(true)
+
+    // Ocultar la notificación después de 3 segundos
+    setTimeout(() => {
+      setShowNotification(false)
+    }, 3000)
+  }
+
+  // Eliminar un item del carrito
+  const removeFromCart = (id: string) => {
+    setItems((prevItems) => {
+      const updatedItems = prevItems.filter((item) => item.id !== id)
+
+      // Guardar en localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cart", JSON.stringify(updatedItems))
+      }
 
       return updatedItems
     })
   }
 
-  const removeFromCart = (id: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id))
-  }
-
+  // Actualizar la cantidad de un item
   const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(id)
-      return
-    }
+    setItems((prevItems) => {
+      let updatedItems
 
-    setItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
+      if (quantity <= 0) {
+        // Si la cantidad es 0 o menos, eliminar el item
+        updatedItems = prevItems.filter((item) => item.id !== id)
+      } else {
+        // Actualizar la cantidad del item
+        updatedItems = prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
+      }
+
+      // Guardar en localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cart", JSON.stringify(updatedItems))
+      }
+
+      return updatedItems
+    })
   }
 
+  // Vaciar el carrito
   const clearCart = () => {
     setItems([])
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cart")
+    }
   }
 
-  const isItemInCart = (id: string) => {
-    return items.some((item) => item.id === id)
+  // Valor del contexto
+  const value = {
+    items,
+    itemCount,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    isCartOpen,
+    setIsCartOpen,
+    showNotification,
+    lastAddedItem,
   }
 
-  return (
-    <CartContext.Provider
-      value={{
-        items,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-        itemCount,
-        isCartOpen,
-        setIsCartOpen,
-        lastAddedItem,
-        showNotification,
-        setShowNotification,
-        isItemInCart,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  )
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
-export const useCart = () => {
+// Hook personalizado para usar el contexto
+export function useCart() {
   const context = useContext(CartContext)
   if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider")
+    throw new Error("useCart debe ser usado dentro de un CartProvider")
   }
   return context
 }

@@ -1,4 +1,4 @@
-// pages/principal.tsx
+
 'use client';
 import React, { useRef } from 'react';
 import {

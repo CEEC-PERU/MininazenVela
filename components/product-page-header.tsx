@@ -1,22 +1,12 @@
-
-'use client'
-
-import React from 'react';
-import Header from './header';
-import Footer from './footer';
+"use client"
+import Header from "@/components/header"
 import { useRouter } from 'next/navigation';
 
-interface LayoutProps {
-  children: React.ReactNode;
-  setCurrentPage?: (page: string) => void; 
-}
-
-
-const Layout = ({ children }: LayoutProps) => {
+export default function ProductPageHeader() {
   const router = useRouter();
 
-  const handleNavigation = (page: string) => {
-    console.log(`Navegando desde Layout a: ${page}`);
+  const setCurrentPage = (page: string) => {
+    console.log(`Navegando a: ${page}`);
     if (page === 'inicio') {
       router.push('/');
     } else if (page === 'velas') {
@@ -26,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => {
     } else if (page === 'waxMelts') {
       router.push('/usuario/wax-melts');
     } else if (page === 'accesorios') {
-      router.push('/usuario/accesorios');
+      router.push('/usuario/accesorios'); 
     } else if (page === 'all') {
       router.push('/usuario/all');
     } else if (page === 'esencias') {
@@ -38,17 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
     } else {
       console.log(`Implementar navegación para: ${page}`);
     }
-  };
+  }
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Header setCurrentPage={handleNavigation} />
-      <main className="flex-grow">
-        {children}
-      </main>
-      <Footer setCurrentPage={handleNavigation} />
-    </div>
-  );
-};
-
-export default Layout;
+  return <Header setCurrentPage={setCurrentPage} />
+}

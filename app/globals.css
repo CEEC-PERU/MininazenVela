@@ -1694,3 +1694,407 @@ label:hover {
 
 
 
+
+
+
+
+
+
+/* detalles */
+.product-detail-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.product-detail-page a:hover {
+  color:#8f9eb4;
+}
+
+/*  tabs */
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  color: #a6b7d1;
+}
+
+.active-tab {
+  border-bottom-color:#8f9eb4; 
+  color: #8f9eb4; 
+}
+
+
+/* paginación */
+.pagination-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #e5e7eb; 
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #a6b7d1; 
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #e5e7eb; 
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.pagination-number:hover {
+  background-color: #a3b1cf; 
+}
+
+.pagination-number.active {
+  background-color: #bcc4dc; 
+  color: white;
+  border-color: #a6b7d1; 
+}
+
+
+
+/* atributos del producto */
+.product-attribute {
+  font-size: 0.875rem;
+  color: #494b52; 
+  text-transform: capitalize;
+}
+
+/*  descripción del producto */
+.product-description, .shipping-info {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #4b5563; 
+}
+
+/* productos relacionados */
+.related-products h2 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.related-products h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background-color: #92400e; 
+}
+
+
+/* Estilos para el texto general  */
+.product-detail-page h1,
+.product-detail-page h2,
+.product-detail-page h3,
+.product-detail-page p,
+.product-detail-page span,
+.product-detail-page button,
+.product-detail-page a {
+  color: #555c68; /* Establece el color del texto a negro */
+}
+
+/* Estilos específicos para los enlaces del breadcrumb (opcional, si quieres mantener el hover en otro color) */
+.product-detail-page .text-gray-500.hover\:text-amber-800 {
+  color: black; /* Color inicial negro */
+}
+
+.product-detail-page .text-gray-500.hover\:text-amber-800:hover {
+  color: #6c93ce; /* Color al pasar el ratón (ámbar oscuro) */
+}
+
+/* Estilo para el texto activo de las pestañas (si quieres mantener el color de énfasis) */
+.product-detail-page .tab-button.active-tab {
+  color: #323a55; /* Mantén el color ámbar oscuro para la pestaña activa */
+}
+
+/* Estilos para el botón "Añadir al carrito" */
+.add-to-cart-btn {
+  color: white; 
+}
+
+/*  contador de cantidad */
+.quantity-selector input[type="text"] {
+  color:#323a55; 
+}
+
+
+
+
+
+
+
+/* botón Añadir al carrito */
+.add-to-cart-btn {
+ 
+  display: flex;
+  height: 3rem; 
+  align-items: center;
+  justify-content: center;
+  padding-left: 2rem;
+  padding-right: 2rem; 
+  font-size: 0.875rem; 
+  line-height: 1.25rem; 
+  text-transform: uppercase;
+  color: white !important; 
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; 
+  border-radius: 0.25rem; 
+  font-weight: 500; 
+}
+
+.add-to-cart-btn:hover {
+
+
+  background-color: #bcc4dc; 
+  color: #f0f0f0;
+}
+
+/*  NO  carrito */
+.add-to-cart-btn:not(.bg-green-600) {
+  background-color:#84a6e6; 
+}
+
+.add-to-cart-btn:not(.bg-green-600):hover {
+  background-color:#506386; 
+}
+
+/*  YA en el carrito */
+.add-to-cart-btn.bg-green-600 {
+  background-color:  #bcccd4;   
+  color: #f0f0f0 !important; 
+  font-weight: bold; 
+}
+
+.add-to-cart-btn.bg-green-600:hover {
+  background-color: #a6b7d1; 
+}
+
+
+.add-to-cart-btn > span {
+  
+}
+
+
+
+
+
+.product-card-container {
+  .group {
+    position: relative;
+
+    > a {
+      display: block;
+
+      > div:first-child {
+        position: relative;
+
+        > div.absolute:last-child {
+          display: none;
+        }
+      }
+    }
+
+    /*   carrito */
+    button.quick-add-to-cart-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px; 
+      width: 42px;
+      border-radius: 6px; 
+      background-color: #b2c3dd; 
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25); 
+      color:#ffffff;
+      opacity: 0;
+      transition-property: opacity, background-color, transform;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-out;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      z-index: 20;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transform: scale(0.9); 
+
+      svg {
+        width: 25px; 
+        height: 25px; 
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .lucide-check {
+        width: 25px;
+        height: 25px;
+        color:#e2f1ff; 
+      }
+
+      &:hover {
+        background-color: #6c798b; 
+        transform: scale(1); 
+      }
+    }
+
+    &:hover button.quick-add-to-cart-button {
+      opacity: 1;
+      transform: scale(1); 
+    }
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  sección de Información*/
+.product-detail-page .mt-20.grid.grid-cols-1.gap-8.border-t.border-gray-200.pt-8.md\:grid-cols-3 {
+  margin-top: 5rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 2rem;
+  border-top: 0px solid #d1d5db17;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+
+  /* Degradado  */
+  background: linear-gradient(to bottom, #cddeee67 , #b8c8cf49); 
+}
+
+@media (min-width: 768px) {
+  .product-detail-page .mt-20.grid.grid-cols-1.gap-8.border-t.border-gray-200.pt-8.md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/*  individual de información */
+.product-detail-page .information,
+.product-detail-page .contact,
+.product-detail-page .payments {
+  padding: 1rem;
+}
+
+/*  títulos de las secciones */
+.product-detail-page .information h3,
+.product-detail-page .contact h3,
+.product-detail-page .payments h3 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #a6b7d1;
+}
+
+/*  lista de enlaces e información */
+.product-detail-page .information ul,
+.product-detail-page .contact ul {
+  space-y: 0.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+/*  lista (textos y enlaces) */
+.product-detail-page .information ul li,
+.product-detail-page .contact ul li {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #727b94;
+}
+
+/*para los enlaces */
+.product-detail-page .information ul li a,
+.product-detail-page .contact ul li a {
+  color: #727b94;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+/*  hover de los enlaces */
+.product-detail-page .information ul li a:hover,
+.product-detail-page .contact ul li a:hover {
+  color: #2c4b66;
+}
+
+/*  sección de pagos */
+.product-detail-page .payments h3 {
+
+}
+
+/*  contenedor de los logos de pago */
+.product-detail-page .payments .flex.flex-wrap.items-center.gap-2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Estilos para las imágenes de los logos de pago */
+.product-detail-page .payments .flex.flex-wrap.items-center.gap-2 img {
+  height: 2rem;
+  width: auto;
+}
+
+
+
+/* Estilos para agrandar el logo de pagos */
+.pago-logo-grande {
+  width: auto !important; 
+  height: 100px !important; 
+ 
+}
+
