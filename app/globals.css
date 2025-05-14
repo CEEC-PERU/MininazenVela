@@ -1166,7 +1166,6 @@ label:hover {
   stroke-width: 2px;
 }
 
-/* Estilos para la vista previa del carrito (sin cambios) */
 .cart-preview {
   position: absolute;
   right: 0;
@@ -1227,7 +1226,6 @@ label:hover {
   color: #666;
 }
 
-/* Estilos para la vista previa del carrito (adaptado a la paleta) */
 .cart-preview {
   position: absolute;
   right: 0;
@@ -1700,6 +1698,9 @@ label:hover {
 
 
 
+
+
+
 /* detalles */
 .product-detail-page a {
   color: inherit;
@@ -2098,3 +2099,209 @@ label:hover {
  
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Envíos y Devoluciones  */
+.shipping-returns-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 3rem 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #555;
+  background-color: #e3ebf34d;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.shipping-returns-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #bfcfdeb2;
+}
+
+.shipping-returns-header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.shipping-returns-header p {
+  font-size: 1.1rem;
+  color: #777;
+  font-style: italic;
+}
+
+.shipping-returns-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 4rem;
+  margin-bottom: 3rem; 
+}
+
+.shipping-returns-content section {
+  margin-bottom: 0;
+}
+
+.shipping-returns-content h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #333;
+  letter-spacing: 0.05em;
+  position: relative;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.shipping-returns-content h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 2rem 0 1.2rem;
+  color: #444;
+}
+
+.shipping-returns-content p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+  font-weight: 400;
+  color: #666;
+}
+
+.shipping-returns-content ul {
+  margin: 1.2rem 0 1.8rem 2rem;
+  list-style-type: disc;
+}
+
+.shipping-returns-content li {
+  margin-bottom: 0.7rem;
+  line-height: 1.7;
+  font-weight: 400;
+  color: #666;
+}
+
+.email-link {
+  color: #bcccd4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+  color: #a6b7d1;
+}
+
+
+.contact-container {
+  display: flex;
+  align-items: center;
+  background-color: #e3ebf333;
+  border-radius: 12px;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.contact-section {
+  flex: 1;
+  padding: 1.75rem;
+}
+
+.contact-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.contact-section p {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+  font-weight: 400;
+  color: #666;
+}
+
+.contact-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 0.75rem;
+  margin-left: -0.5rem; 
+}
+
+/*  responsivos */
+@media (max-width: 768px) {
+  .shipping-returns-header h1 {
+    font-size: 2rem;
+  }
+
+  .shipping-returns-content h2,
+  .contact-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .shipping-returns-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .shipping-returns-container {
+    padding: 1.5rem;
+    margin: 2rem auto;
+  }
+
+  .contact-container {
+    flex-direction: column;
+  }
+
+  .contact-section {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .contact-image {
+    padding: 1.5rem;
+    padding-top: 0;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .shipping-returns-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .shipping-returns-content h2,
+  .contact-section h2 {
+    font-size: 1.4rem;
+  }
+}

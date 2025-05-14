@@ -43,6 +43,7 @@ const Footer = ({ setCurrentPage }: FooterProps) => {
               <li className="footer-link-item"><a href="#" onClick={(e) => handleNavigation('velas', e)} className="footer-link hover:underline">Velas</a></li>
               <li className="footer-link-item"><a href="#" onClick={(e) => handleNavigation('decorativos', e)} className="footer-link hover:underline">Decorativos</a></li>
               <li className="footer-link-item"><a href="#" onClick={(e) => handleNavigation('wax-melts', e)} className="footer-link hover:underline">Wax melts</a></li>
+              <li className="footer-link-item"><a href="#" onClick={(e) => handleNavigation('accesorios', e)} className="footer-link hover:underline">Accesorios</a></li>
               <li className="footer-link-item"><a href="#" onClick={(e) => handleNavigation('esencias', e)} className="footer-link hover:underline">Esencias</a></li>
             </ul>
           </div>
