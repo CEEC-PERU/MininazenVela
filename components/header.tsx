@@ -3,7 +3,7 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import { Search, X } from "lucide-react"
+import { Search, X, User, LogIn, UserPlus } from "lucide-react"
 import { useCart } from "@/context/CartContext"
 import Image from "next/image"
 
@@ -14,6 +14,7 @@ interface HeaderProps {
 const Header = ({ setCurrentPage }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileSearchVisible, setIsMobileSearchVisible] = useState(false)
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
   const {
     items,
     itemCount,
@@ -25,6 +26,7 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
     updateQuantity,
   } = useCart()
   const cartRef = useRef<HTMLDivElement>(null)
+  const profileRef = useRef<HTMLDivElement>(null)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -39,11 +41,18 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
     setIsMobileSearchVisible(!isMobileSearchVisible)
   }
 
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen)
+  }
+
   // Cerrar el carrito al hacer clic fuera de él
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
         setIsCartOpen(false)
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileMenuOpen(false)
       }
     }
 
@@ -74,14 +83,13 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
                 width={59}
                 height={50}
                 className="inline-block align-middle"
-                style={{ maxWidth: 'none', height: 'auto' }}
+                style={{ maxWidth: "none", height: "auto" }}
               />
             </a>
           </div>
 
           {/* Íconos + buscador */}
           <div className="flex items-center space-x-6 text-[#4b4b4b]">
-
             <div className="relative hidden md:block">
               <input
                 type="text"
@@ -239,6 +247,58 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
                         Ver carrito ({itemCount})
                       </a>
                     </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Icono de perfil de usuario */}
+            <div className="relative" ref={profileRef}>
+              <button
+                onClick={toggleProfileMenu}
+                className="relative flex items-center text-[#4b4b4b] hover:text-[#a384a3] transition-colors"
+                aria-label="Perfil de usuario"
+              >
+                <User className="h-7 w-7 md:h-8 md:w-8" />
+              </button>
+
+              {/* Menú desplegable de perfil */}
+              {isProfileMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white shadow-lg z-50 border border-gray-200 rounded-sm overflow-hidden profile-menu-animation">
+                  <div className="py-2">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        handleNavigation("mi-cuenta", e)
+                        setIsProfileMenuOpen(false)
+                      }}
+                      className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-[#f8f0f8] hover:text-[#a384a3] transition-colors"
+                    >
+                      <User className="h-4 w-4 mr-3" />
+                      <span>Mi Cuenta</span>
+                    </a>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        handleNavigation("iniciar-sesion", e)
+                        setIsProfileMenuOpen(false)
+                      }}
+                      className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-[#f8f0f8] hover:text-[#a384a3] transition-colors"
+                    >
+                      <LogIn className="h-4 w-4 mr-3" />
+                      <span>Iniciar Sesión</span>
+                    </a>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        handleNavigation("registrarse", e)
+                        setIsProfileMenuOpen(false)
+                      }}
+                      className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-[#f8f0f8] hover:text-[#a384a3] transition-colors"
+                    >
+                      <UserPlus className="h-4 w-4 mr-3" />
+                      <span>Registrarse</span>
+                    </a>
                   </div>
                 </div>
               )}
