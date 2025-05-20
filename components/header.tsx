@@ -256,7 +256,7 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
             <div className="relative" ref={profileRef}>
               <button
                 onClick={toggleProfileMenu}
-                className="relative flex items-center text-[#4b4b4b] hover:text-[#a384a3] transition-colors"
+                className="relative flex items-center text-[#4b4b4b] hover:text-[#a6b7d1] transition-colors"
                 aria-label="Perfil de usuario"
               >
                 <User className="h-7 w-7 md:h-8 md:w-8" />

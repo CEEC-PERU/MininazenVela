@@ -2334,12 +2334,50 @@ label:hover {
 
 
 
+/* menú desplegable */
+.profile-menu-animation {
+  position: absolute;
+  right: 0;
+  top: 100%; 
+  margin-top: 0.7rem; 
+  width: 14rem; 
 
+  /* Apariencia */
+  background-color: #ffffff; 
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg en Tailwind */
+  z-index: 50; 
+  border: 1px solid #e5e7eb; 
+  border-radius: 0.125rem; 
+  overflow: hidden; 
+}
 
+/*  enlaces dentro del menú desplegable */
+.profile-menu-animation a {
+  display: flex; 
+  align-items: center; 
+  padding: 0.75rem 1rem; 
+  font-size: 1rem; 
+  color: #7f8999; 
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; /* transition-colors en Tailwind */
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
+  transition-duration: 150ms; 
+}
 
+.profile-menu-animation a:hover {
+  background-color: #a6b7d180; 
+  color: #ffffff; 
+}
 
+.profile-menu-animation a svg {
+  height: 1rem; 
+  width: 1rem; 
+  margin-right: 0.75rem; 
+}
 
-
+.profile-menu-animation > div {
+  padding-top: 0.5rem; 
+  padding-bottom: 0.5rem; 
+}
 
 
 
@@ -2359,6 +2397,18 @@ label:hover {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 /* Estilos para los formularios de autenticación */
 .auth-container {
   display: flex;
@@ -2370,11 +2420,11 @@ label:hover {
 }
 
 .auth-card {
-  background-color: white;
+  background-color: #ffffffe8;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 480px;
+  max-width: 480px; /* color del form */
   padding: 2rem;
 }
 
@@ -2387,8 +2437,8 @@ label:hover {
 }
 
 .auth-icon {
-  background-color: #f0e6f0;
-  color: #a384a3;
+  background-color: #a6b7d1c2;
+  color: #ffffff;
   padding: 1rem;
   border-radius: 50%;
   width: 64px;
@@ -2399,7 +2449,7 @@ label:hover {
 .auth-header h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
+  color: #8e9db3;
   margin: 0;
 }
 
@@ -2418,7 +2468,7 @@ label:hover {
 .form-group label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #555;
+  color: #96a4b9;
 }
 
 .input-with-icon {
@@ -2430,7 +2480,7 @@ label:hover {
 .input-icon {
   position: absolute;
   left: 1rem;
-  color: #a384a3;
+  color:#96a4b9;
   width: 18px;
   height: 18px;
 }
@@ -2439,14 +2489,20 @@ label:hover {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.5rem;
   border: 1px solid #e2e8f0;
+  color: #000000; 
   border-radius: 6px;
   font-size: 0.875rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.input-with-icon input::placeholder {
+  color: #9ca3af85; 
+  opacity: 1;
+}
+
 .input-with-icon input:focus {
   outline: none;
-  border-color: #a384a3;
+  border-color: #a6b7d1;
   box-shadow: 0 0 0 3px rgba(163, 132, 163, 0.1);
 }
 
@@ -2481,7 +2537,7 @@ label:hover {
 
 .forgot-password {
   font-size: 0.875rem;
-  color: #a384a3;
+  color: #8997ac;
   text-decoration: none;
 }
 
@@ -2490,7 +2546,7 @@ label:hover {
 }
 
 .auth-submit {
-  background-color: #a384a3;
+  background-color: #bcc4dc;
   color: white;
   border: none;
   border-radius: 6px;
@@ -2502,7 +2558,7 @@ label:hover {
 }
 
 .auth-submit:hover {
-  background-color: #8a6d8a;
+  background-color:#a6b7d1;
 }
 
 .auth-submit.loading {
@@ -2511,7 +2567,7 @@ label:hover {
 }
 
 .auth-error {
-  background-color: #fee2e2;
+  background-color: #a6b7d1;
   color: #b91c1c;
   padding: 0.75rem;
   border-radius: 6px;
@@ -2527,7 +2583,7 @@ label:hover {
 }
 
 .auth-alternate a {
-  color: #a384a3;
+  color: #9aa9c0;
   text-decoration: none;
   font-weight: 500;
   margin-left: 0.25rem;
@@ -2536,6 +2592,16 @@ label:hover {
 .auth-alternate a:hover {
   text-decoration: underline;
 }
+
+
+
+
+
+
+
+
+
+
 
 /*  cuenta de usuario */
 .user-account-container {
@@ -2557,7 +2623,7 @@ label:hover {
 
 .user-account-sidebar {
   width: 280px;
-  background-color: #f8f0f8;
+  background-color: #e3ebf3;
   padding: 2rem 1.5rem;
   flex-shrink: 0;
 }
@@ -2574,12 +2640,12 @@ label:hover {
 .user-avatar {
   width: 60px;
   height: 60px;
-  background-color: #e6d7e6;
+  background-color: #a6b7d1;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #a384a3;
+  color: #ffffff;
 }
 
 .user-info h3 {
@@ -2608,7 +2674,7 @@ label:hover {
   padding: 0.75rem 1rem;
   border-radius: 6px;
   font-size: 0.875rem;
-  color: #4b4b4b;
+  color: #848d96;
   background: none;
   border: none;
   cursor: pointer;
@@ -2617,22 +2683,22 @@ label:hover {
 }
 
 .user-nav-item:hover {
-  background-color: rgba(163, 132, 163, 0.1);
-  color: #a384a3;
+  background-color: #e3ebf3;
+  color: #a6b7d1;
 }
 
 .user-nav-item.active {
-  background-color: #a384a3;
+  background-color: #a6b7d1;
   color: white;
 }
 
 .user-nav-item.logout {
   margin-top: 1rem;
-  color: #e53e3e;
+  color: #94a0a7;
 }
 
 .user-nav-item.logout:hover {
-  background-color: rgba(229, 62, 62, 0.1);
+  background-color:  #e3ebf3;
 }
 
 .user-account-content {
@@ -2646,7 +2712,7 @@ label:hover {
   color: #333;
   margin: 0 0 1.5rem 0;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid #a6b7d1ad;
 }
 
 .profile-info {
@@ -2676,7 +2742,7 @@ label:hover {
 .edit-profile-btn,
 .add-payment-btn,
 .change-password-btn {
-  background-color: #a384a3;
+  background-color: #a6b7d1;
   color: white;
   border: none;
   border-radius: 6px;
@@ -2692,7 +2758,7 @@ label:hover {
 .edit-profile-btn:hover,
 .add-payment-btn:hover,
 .change-password-btn:hover {
-  background-color: #8a6d8a;
+  background-color: #a6b7d1;
 }
 
 .empty-state {
@@ -2718,7 +2784,7 @@ label:hover {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid #a6b7d1;
 }
 
 .setting-option label {

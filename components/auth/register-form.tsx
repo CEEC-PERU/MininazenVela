@@ -6,10 +6,12 @@ import { useState } from "react"
 import { UserPlus, Mail, Lock, User, Eye, EyeOff } from "lucide-react"
 
 interface RegisterFormProps {
-  onSuccess?: () => void
+  onSuccess?: () => void;
+  // Nuevo prop para manejar la navegación de vuelta al formulario de inicio de sesión
+  onNavigateToLogin?: () => void;
 }
 
-const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
+const RegisterForm = ({ onSuccess, onNavigateToLogin }: RegisterFormProps) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -34,7 +36,7 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
       // lógica registro real
       console.log("Registrando usuario:", { name, email, password })
 
-      // Simular retraso para mostrar  estado de carga
+      // Simular retraso para mostrar estado de carga
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // Llamar a onSuccess si el registro es exitoso
@@ -96,7 +98,7 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="contraseña"
                 required
                 minLength={8}
               />
@@ -106,7 +108,7 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                 className="password-toggle"
                 aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </button>
             </div>
           </div>
@@ -120,10 +122,18 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                 type={showPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="confirmacion"
                 required
                 minLength={8}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="password-toggle"
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              >
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+              </button>
             </div>
           </div>
 
@@ -147,8 +157,12 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
           <a
             href="#"
             onClick={(e) => {
-              e.preventDefault()
-              document.dispatchEvent(new CustomEvent("navigate", { detail: { page: "iniciar-sesion" } }))
+              e.preventDefault();
+              if (onNavigateToLogin) {
+                onNavigateToLogin();
+              } else {
+                document.dispatchEvent(new CustomEvent("navigate", { detail: { page: "iniciar-sesion" } }));
+              }
             }}
           >
             Inicia sesión aquí

@@ -55,19 +55,38 @@ const Layout = ({ children }: LayoutProps) => {
     }
   }
 
+  // Funciones para pasar a los formularios de autenticación
+  const navigateToRegister = () => {
+    setCurrentView("registrarse");
+  };
+
+  const navigateToLogin = () => {
+    setCurrentView("iniciar-sesion");
+  };
+
   // Renderizar el contenido según la vista actual
   const renderAuthContent = () => {
     switch (currentView) {
       case "iniciar-sesion":
-        return <LoginForm onSuccess={() => setCurrentView(null)} />
+        return (
+          <LoginForm
+            onSuccess={() => setCurrentView(null)}
+            onNavigateToRegister={navigateToRegister} // Pasamos la función para ir a registrarse
+          />
+        );
       case "registrarse":
-        return <RegisterForm onSuccess={() => setCurrentView(null)} />
+        return (
+          <RegisterForm
+            onSuccess={() => setCurrentView(null)}
+            onNavigateToLogin={navigateToLogin} // Pasamos la función para ir a iniciar sesión
+          />
+        );
       case "mi-cuenta":
-        return <UserAccount />
+        return <UserAccount />;
       default:
-        return children
+        return children;
     }
-  }
+  };
 
   return (
     <CartProvider>
@@ -77,7 +96,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Footer setCurrentPage={handleNavigation} />
       </div>
     </CartProvider>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

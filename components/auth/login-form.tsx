@@ -6,10 +6,12 @@ import { useState } from "react"
 import { User, Lock, Mail, Eye, EyeOff } from "lucide-react"
 
 interface LoginFormProps {
-  onSuccess?: () => void
+  onSuccess?: () => void;
+  // Nuevo prop para manejar la navegación al formulario de registro
+  onNavigateToRegister?: () => void;
 }
 
-const LoginForm = ({ onSuccess }: LoginFormProps) => {
+const LoginForm = ({ onSuccess, onNavigateToRegister }: LoginFormProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -72,7 +74,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="contraseña"
                 required
               />
               <button
@@ -81,7 +83,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 className="password-toggle"
                 aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </button>
             </div>
           </div>
@@ -102,8 +104,12 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
           <a
             href="#"
             onClick={(e) => {
-              e.preventDefault()
-              document.dispatchEvent(new CustomEvent("navigate", { detail: { page: "registrarse" } }))
+              e.preventDefault();
+              if (onNavigateToRegister) {
+                onNavigateToRegister();
+              } else {
+                document.dispatchEvent(new CustomEvent("navigate", { detail: { page: "registrarse" } }));
+              }
             }}
           >
             Regístrate aquí
