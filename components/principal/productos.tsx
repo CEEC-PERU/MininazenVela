@@ -47,7 +47,7 @@ const ProductosDestacados = React.forwardRef<HTMLDivElement>((_, ref) => (
       </div>
       <div className="text-center mt-8">
         <a
-          href="#productos-destacados"
+          href="/usuario/all"
           className="verTodosProductos__boton"
         >
           Ver Todos los Productos

@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { FilterSidebar } from "@/components/filter-sidebar"
+import { FilterSidebar } from "@/components/filter-sidebar" 
 import { ProductGrid } from "@/components/product-grid"
-import { PageHeader } from "@/components/page-header"
-import Layout from "@/components/Layout"
+import { PageHeader } from "@/components/page-header" 
 
 const mockProducts = [
   {
@@ -310,7 +309,7 @@ export default function AccesoriosPage() {
     setActiveFilters(filters)
     setCurrentPage(1)
   }, [])
-  
+
   useEffect(() => {
     // Filtrar productos basados en los filtros activos
     let result = [...mockProducts]
@@ -371,7 +370,8 @@ export default function AccesoriosPage() {
       <PageHeader title="ACCESORIOS" backgroundImage={headerImage} />
       <div className="container mx-auto px-4 py-12 main-content-area">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[250px_1fr]">
-          <div className="md:sticky md:top-24 md:self-start">
+        
+          <div className="md:sticky md:top-[64px] md:self-start h-[calc(100vh-64px)] overflow-y-auto pr-4 bg-white">
             <FilterSidebar onFilterChange={handleFilterChange} minPrice={5} maxPrice={25} />
           </div>
 

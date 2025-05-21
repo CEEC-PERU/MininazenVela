@@ -1,4 +1,3 @@
-// components/header.tsx
 "use client"
 
 import type React from "react"
@@ -6,6 +5,7 @@ import { useState, useRef, useEffect } from "react"
 import { Search, X, User, LogIn, UserPlus } from "lucide-react"
 import { useCart } from "@/context/CartContext"
 import Image from "next/image"
+import { mockProducts } from "@/data/products" 
 
 interface HeaderProps {
   setCurrentPage: (page: string) => void
@@ -15,6 +15,8 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileSearchVisible, setIsMobileSearchVisible] = useState(false)
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
+  const [isSearchFocused, setIsSearchFocused] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
   const {
     items,
     itemCount,
@@ -27,6 +29,10 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
   } = useCart()
   const cartRef = useRef<HTMLDivElement>(null)
   const profileRef = useRef<HTMLDivElement>(null)
+  const searchRef = useRef<HTMLDivElement>(null)
+
+  // Obtener los 4 productos más populares (usamos los primeros 4)
+  const popularProducts = mockProducts.slice(0, 4)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -37,15 +43,31 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
     setCurrentPage(page)
   }
 
+  const handleProductClick = (slug: string, e: React.MouseEvent) => {
+    e.preventDefault()
+    setCurrentPage("accesorios")
+    setIsSearchFocused(false)
+    // Aquí podrías navegar a la página de detalles del producto
+    console.log(`Navegando al producto: ${slug}`)
+  }
+
   const toggleMobileSearch = () => {
     setIsMobileSearchVisible(!isMobileSearchVisible)
+    if (!isMobileSearchVisible) {
+      // Si estamos abriendo la búsqueda en móvil, mostrar los productos populares
+      setTimeout(() => {
+        setIsSearchFocused(true)
+      }, 100)
+    } else {
+      setIsSearchFocused(false)
+    }
   }
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen)
   }
 
-  // Cerrar el carrito al hacer clic fuera de él
+  // Cerrar los menús al hacer clic fuera de ellos
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
@@ -53,6 +75,9 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
       }
       if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
         setIsProfileMenuOpen(false)
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchFocused(false)
       }
     }
 
@@ -90,13 +115,56 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
 
           {/* Íconos + buscador */}
           <div className="flex items-center space-x-6 text-[#4b4b4b]">
-            <div className="relative hidden md:block">
+            <div className="relative hidden md:block" ref={searchRef}>
               <input
                 type="text"
                 placeholder="Buscar..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
                 className="bg-transparent border-b border-[#4b4b4b] focus:outline-none focus:border-[#a384a3] placeholder-[#7d7d7d] pl-8 pr-4 py-2 text-base font-light w-[220px] md:w-[260px]"
               />
-              <Search className="absolute left-1.5 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#4b4b4b]" />
+              <Search
+                className="absolute left-1.5 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#4b4b4b] cursor-pointer"
+                onClick={() => setIsSearchFocused(true)}
+              />
+
+              {/* Menú desplegable de búsqueda */}
+              {isSearchFocused && (
+                <div className="absolute left-0 top-full mt-2 w-[300px] bg-white shadow-lg z-50 border border-gray-200 rounded-sm search-dropdown-animation">
+                  <div className="p-4">
+                    <h3 className="text-sm font-medium text-gray-700 mb-3">Productos en Tendencia</h3>
+                    <div className="space-y-3">
+                      {popularProducts.map((product) => (
+                        <a
+                          key={product.id}
+                          href="#"
+                          onClick={(e) => handleProductClick(product.slug, e)}
+                          className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-sm transition-colors"
+                        >
+                          <div className="w-12 h-12 flex-shrink-0 overflow-hidden border border-gray-100">
+                            <Image
+                              src={product.imageUrl || "/placeholder.svg"}
+                              alt={product.name}
+                              width={48}
+                              height={48}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="text-xs font-medium text-gray-800">{product.name}</h4>
+                            <p className="text-xs text-gray-500 truncate">
+                              {product.name.toLowerCase().includes("candle")
+                                ? `${product.name.split(" ")[0]} ${product.name.split(" ")[1]} candles${product.price.toFixed(2)}...`
+                                : `${product.name.split(" ")[0]} ${product.name.split(" ")[1]} of ${product.price.toFixed(2)}...`}
+                            </p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Ícono lupa solo en móvil */}
@@ -202,7 +270,10 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
                           <div className="flex flex-col space-y-2">
                             <a
                               href="#"
-                              onClick={(e) => handleNavigation("carrito", e)}
+                              onClick={(e) => {
+                                handleNavigation("carrito", e)
+                                setIsCartOpen(false)
+                              }}
                               className="w-full py-2 px-4 bg-[#a384a3] text-white text-center text-sm font-medium hover:bg-[#8a6d8a] transition-colors"
                             >
                               Ver carrito
@@ -241,7 +312,10 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
                       <p className="text-xs mt-1">{lastAddedItem.name}</p>
                       <a
                         href="#"
-                        onClick={(e) => handleNavigation("carrito", e)}
+                        onClick={(e) => {
+                          handleNavigation("carrito", e)
+                          setIsCartOpen(false)
+                        }}
                         className="text-xs text-[#a384a3] hover:underline mt-1 inline-block"
                       >
                         Ver carrito ({itemCount})
@@ -307,13 +381,52 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
 
           {/* Input en móvil cuando se activa */}
           {isMobileSearchVisible && (
-            <div className="w-full mt-3 md:hidden">
+            <div className="w-full mt-3 md:hidden" ref={searchRef}>
               <input
                 type="text"
                 placeholder="Buscar..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full border-b border-[#4b4b4b] bg-transparent py-2 px-4 placeholder-[#7d7d7d] text-base focus:outline-none focus:border-[#a384a3] transition-all duration-300"
                 autoFocus
               />
+
+              {/* Menú desplegable de búsqueda en móvil */}
+              {isSearchFocused && (
+                <div className="absolute left-0 right-0 mt-2 mx-4 bg-white shadow-lg z-50 border border-gray-200 rounded-sm search-dropdown-animation">
+                  <div className="p-4">
+                    <h3 className="text-sm font-medium text-gray-700 mb-3">Trending Products</h3>
+                    <div className="space-y-3">
+                      {popularProducts.map((product) => (
+                        <a
+                          key={product.id}
+                          href="#"
+                          onClick={(e) => handleProductClick(product.slug, e)}
+                          className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-sm transition-colors"
+                        >
+                          <div className="w-12 h-12 flex-shrink-0 overflow-hidden border border-gray-100">
+                            <Image
+                              src={product.imageUrl || "/placeholder.svg"}
+                              alt={product.name}
+                              width={48}
+                              height={48}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="text-xs font-medium text-gray-800">{product.name}</h4>
+                            <p className="text-xs text-gray-500 truncate">
+                              {product.name.toLowerCase().includes("candle")
+                                ? `${product.name.split(" ")[0]} ${product.name.split(" ")[1]} candles${product.price.toFixed(2)}...`
+                                : `${product.name.split(" ")[0]} ${product.name.split(" ")[1]} of ${product.price.toFixed(2)}...`}
+                            </p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

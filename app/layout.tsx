@@ -24,3 +24,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+// ordenar esto x por header funcionales de detail x accesorios

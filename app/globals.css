@@ -348,7 +348,7 @@ nav ul li a.active {
   }
 }
 
-
+  
 
 /* categoría */
 .categoria-card {
@@ -1644,6 +1644,46 @@ label:hover {
   gap: 0.5rem;
 }
 
+
+
+
+.bg-\[\#e3ebf3\].text-black.hover\:bg-\[\#a6b7d1\].transition-colors:hover {
+  color: white !important; 
+}
+.ml-2.px-4.py-2.bg-\[\#e3ebf3\].text-white.text-sm.font-medium.hover\:bg-\[\#a6b7d1\].transition-colors:hover {
+  color: white !important; 
+}
+
+
+.flex-1.border.border-gray-300.px-3.py-2.text-sm.focus\:outline-none.focus\:border-\[\#a384a3\] {
+  color: black !important;
+}
+
+.inline-block.px-8.py-3.border.border-black.text-black.hover\:bg-\[\#a6b7d1\].hover\:text-white.transition-colors {
+  border-color: #8d9aad !important; 
+
+
+  background-color: #e7f0f8d5 !important; 
+
+  color: #717c8f !important; 
+
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.inline-block.px-8.py-3.border.border-black.text-black.hover\:bg-\[\#a6b7d1\].hover\:text-white.transition-colors:hover {
+  background-color: #a6b7d1 !important; 
+
+  color: white !important; 
+  border-color: #a6b7d1 !important; 
+}
+
+
+
+
+
+
+
+
 /* Botón "Ver carrito" */
 .w-full.py-2.px-4.bg-\[\#a384a3\].text-white.text-center.text-sm.font-medium.hover\:bg-\[\#8a6d8a\].transition-colors {
   width: 100%; /* Ocupa todo el ancho del contenedor */
@@ -2802,3 +2842,27 @@ label:hover {
     width: 100%;
   }
 }
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  menú desplegable de búsqueda */
+.search-dropdown-animation {
+  animation: fadeInDown 0.3s ease-out;
+}
+
+
+
+
+
+
