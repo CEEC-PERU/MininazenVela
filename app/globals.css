@@ -184,11 +184,18 @@ body {
 
 
 
+
+
+
+
+
+
 /* header */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 .header-logo {
-  font-size: clamp(2rem, 8vw, 5rem); 
+  font-size: clamp(2rem, 8vw, 5rem);
   letter-spacing: 0.18em;
   padding: 3.5rem 2.5rem;
   text-align: center;
@@ -200,29 +207,28 @@ body {
   border-radius: 16px;
   margin: 2rem auto;
   width: fit-content;
-  max-width: 100%;
+  max-width: 95%;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   border: 2px solid #dee3ee;
-  overflow-wrap: break-word; 
-  word-break: break-word;   
-  white-space: normal;      
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
   .header-logo {
-    
     font-size: clamp(2rem, 10vw, 6.5rem);
     padding: clamp(1.5rem, 5vw, 3.5rem) clamp(1rem, 6vw, 4rem);
+    max-width: 100%;
   }
 }
-
 
 .top-bar {
   font-family: 'Playfair Display', serif;
   box-shadow: none;
   border-bottom: none;
 }
-
 
 nav {
   font-family: 'Montserrat', sans-serif;
@@ -231,26 +237,53 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 nav .container {
   padding-left: 1rem;
   padding-right: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 nav button {
   color: #a7acb3;
   font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  box-sizing: border-box;
+  outline: none;
 }
 
 nav button:hover {
   color: #9db4cc;
 }
 
+nav button:focus {
+  outline: none;
+}
+
 nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+nav ul li {
+  box-sizing: border-box;
 }
 
 nav ul li a {
@@ -263,6 +296,9 @@ nav ul li a {
   padding: 1rem 1rem;
   transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
   text-transform: uppercase;
+  white-space: nowrap;
+  box-sizing: border-box;
+  outline: none;
 }
 
 nav ul li a:hover {
@@ -270,44 +306,52 @@ nav ul li a:hover {
   transform: scale(1.03);
 }
 
+nav ul li a:focus {
+  outline: none;
+}
+
 nav ul li a.active {
   color: #9db4cc;
   font-weight: 700;
 }
 
-/* Estilos para pantallas medianas (tablets) */
 @media (max-width: 768px) {
   nav .container {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-  }
-
-  nav ul {
-    gap: 0.75rem;
-  }
-
-  nav ul li a {
-    font-size: 0.8rem;
-    padding: 0.6rem 0.8rem;
-  }
-
-  nav button {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-  }
-}
-
-@media (max-width: 640px) {
-  nav .container {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
-  }
-
-  nav ul {
     flex-direction: column;
+    align-items: center;
+  }
+
+  /* Botón de categorías visible */
+  nav button {
+    display: flex !important;
+    padding: 1rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color:#a5b6d0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  nav button:hover {
+    color: #8a99b8;
+  }
+
+  nav ul {
+    display: none !important;
+    gap: 0.75rem;
+    flex-direction: column;
+    width: 100%;
     align-items: center;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+  }
+
+  nav ul.flex {
+    display: flex !important;
   }
 
   nav ul li {
@@ -316,22 +360,42 @@ nav ul li a.active {
   }
 
   nav ul li a {
-    font-size: 0.85rem;
-    padding: 0.6rem;
+    font-size: 0.9rem;
+    padding: 0.8rem 0.8rem;
     border-bottom: 1px solid #eee;
+    width: 100%;
   }
 
   nav ul li:last-child a {
     border-bottom: none;
   }
+}
+
+@media (max-width: 640px) {
+  .header-logo {
+    font-size: clamp(1.5rem, 8vw, 4rem);
+    padding: 2rem 1.5rem;
+    margin: 1rem auto;
+  }
+
+  nav .container {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
 
   nav button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    padding: 0.875rem;
+  }
+
+  nav ul {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  nav ul li a {
+    font-size: 0.85rem;
+    padding: 0.6rem;
   }
 
   .md\:flex.flex-col.md\:flex-row {
@@ -348,7 +412,110 @@ nav ul li a.active {
   }
 }
 
+@media (max-width: 480px) {
+  .header-logo {
+    font-size: clamp(1.2rem, 7vw, 3rem);
+    padding: 1.5rem 1rem;
+    margin: 0.5rem auto;
+    letter-spacing: 0.1em;
+  }
+
+  nav button {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+
+  nav ul li a {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  nav button {
+    display: none !important;
+  }
   
+  nav ul {
+    display: flex !important;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection for content areas */
+p, span, div, h1, h2, h3, h4, h5, h6 {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* categoría */
 .categoria-card {
@@ -1419,6 +1586,19 @@ label:hover {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* pendiente responsivo carrito visat previa */
 /* vista previa del carrito */
 .absolute.right-0.top-full.mt-2.w-80.bg-white.shadow-lg.z-50.border.border-gray-200.rounded-sm {
@@ -1432,11 +1612,42 @@ label:hover {
   z-index: 50; /* Asegura que esté por encima de otros elementos */
   border: 1px solid #b5c0d3d3; /* Borde sutil */
   border-radius: 0.125rem; /* Bordes ligeramente redondeados */
+  /* Ajustes responsivos */
+  max-width: calc(100vw - 2rem);
+  box-sizing: border-box;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .absolute.right-0.top-full.mt-2.w-80.bg-white.shadow-lg.z-50.border.border-gray-200.rounded-sm {
+    width: 18rem;
+    right: -1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .absolute.right-0.top-full.mt-2.w-80.bg-white.shadow-lg.z-50.border.border-gray-200.rounded-sm {
+    width: 16rem;
+    right: -2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .absolute.right-0.top-full.mt-2.w-80.bg-white.shadow-lg.z-50.border.border-gray-200.rounded-sm {
+    width: 14rem;
+    right: -3rem;
+  }
 }
 
 /* Contenido interno de la vista previa */
 .p-4 {
   padding: 1rem; /* Espaciado interno */
+}
+
+@media (max-width: 480px) {
+  .p-4 {
+    padding: 0.75rem;
+  }
 }
 
 /* Encabezado del carrito (Tu Carrito y botón de cerrar) */
@@ -1454,6 +1665,18 @@ label:hover {
   color: #8894a7; /* Color del texto (gris oscuro) */
 }
 
+@media (max-width: 640px) {
+  .text-sm.font-medium {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-sm.font-medium {
+    font-size: 1.1rem;
+  }
+}
+
 /* Botón de cerrar (la 'X') */
 .text-gray-500.hover\:text-gray-700 {
   color: #7d7d7d; /* Color del texto (gris medio) */
@@ -1469,6 +1692,13 @@ label:hover {
   width: 1.4rem; /* Ancho del icono */
 }
 
+@media (max-width: 480px) {
+  .h-4.w-4 {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+}
+
 /* Mensaje de carrito vacío */
 .text-sm.text-gray-500.text-center.py-4 {
   font-size: 1.4rem; /* Tamaño de la fuente pequeño */
@@ -1478,12 +1708,40 @@ label:hover {
   padding-bottom: 1rem; /* Espaciado inferior */
 }
 
+@media (max-width: 640px) {
+  .text-sm.text-gray-500.text-center.py-4 {
+    font-size: 1.2rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-sm.text-gray-500.text-center.py-4 {
+    font-size: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
 /* Contenedor de los items del carrito con scroll personalizado */
 .max-h-60.overflow-y-auto {
   max-height: 16rem; /* Altura máxima antes de que aparezca la barra de scroll */
   overflow-y: auto; /* Activa la barra de scroll vertical si el contenido excede la altura máxima */
   scrollbar-width: thin; /* Para Firefox: hace la barra de scroll más delgada */
   scrollbar-color: #8e9cb6 #f9f9f9; /* Para Firefox: color del "pulgar" y la "pista" */
+}
+
+@media (max-width: 640px) {
+  .max-h-60.overflow-y-auto {
+    max-height: 14rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .max-h-60.overflow-y-auto {
+    max-height: 12rem;
+  }
 }
 
 /* Estilos para navegadores WebKit (Chrome, Safari) y Blink (Edge) */
@@ -1514,6 +1772,20 @@ label:hover {
   border-bottom: 1px solid #cdd1d8e3; /* Línea divisoria entre items */
 }
 
+@media (max-width: 640px) {
+  .flex.items-center.py-3.border-b.border-gray-100.last\:border-0 {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .flex.items-center.py-3.border-b.border-gray-100.last\:border-0 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
 /* Elimina el borde inferior del último item */
 .last\:border-0:last-child {
   border-bottom: 0;
@@ -1526,6 +1798,20 @@ label:hover {
   flex-shrink: 0; /* Evita que la imagen se encoja */
   overflow: hidden; /* Recorta la imagen si excede el contenedor */
   border: 1px solid #9da8ba; /* Borde alrededor de la imagen */
+}
+
+@media (max-width: 640px) {
+  .w-16.h-16.flex-shrink-0.overflow-hidden.border.border-gray-100 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .w-16.h-16.flex-shrink-0.overflow-hidden.border.border-gray-100 {
+    width: 3rem;
+    height: 3rem;
+  }
 }
 
 /* Imagen del producto */
@@ -1541,6 +1827,12 @@ label:hover {
   flex-grow: 1; /* Permite que este div crezca para ocupar el espacio disponible */
 }
 
+@media (max-width: 480px) {
+  .ml-3.flex-1 {
+    margin-left: 0.5rem;
+  }
+}
+
 /* Nombre del producto */
 .text-xs.font-medium {
   font-size: 1rem; /* Tamaño de la fuente muy pequeño */
@@ -1548,12 +1840,29 @@ label:hover {
   color: #8894a7; /* Color del texto (gris oscuro) */
 }
 
+@media (max-width: 640px) {
+  .text-xs.font-medium {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-xs.font-medium {
+    font-size: 0.8rem;
+  }
+}
+
 /* Contenedor de la cantidad y el precio */
 .flex.items-center.mt-1 {
   display: flex; /* Distribuye los elementos en línea */
   align-items: center; /* Alinea verticalmente al centro */
   margin-top: 1rem; /* Espacio superior */
+}
 
+@media (max-width: 480px) {
+  .flex.items-center.mt-1 {
+    margin-top: 0.75rem;
+  }
 }
 
 /* Contenedor de los botones de cantidad */
@@ -1586,12 +1895,32 @@ label:hover {
   color: #596069; /* Color del texto (gris oscuro) */
 }
 
+@media (max-width: 480px) {
+  .px-2.text-xs {
+    padding-left: 0.375rem;
+    padding-right: 0.375rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* Precio del producto */
 .ml-auto.text-xs.font-medium {
   margin-left: auto; /* Empuja el precio hacia la derecha */
   font-size: 1.1rem; /* Tamaño de la fuente muy pequeño */
   font-weight: 500; /* Peso de la fuente medio */
   color: #4b4b4b; /* Color del texto (gris oscuro) */
+}
+
+@media (max-width: 640px) {
+  .ml-auto.text-xs.font-medium {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ml-auto.text-xs.font-medium {
+    font-size: 0.9rem;
+  }
 }
 
 /* Botón de eliminar item del carrito */
@@ -1610,11 +1939,25 @@ label:hover {
   width: 0.75rem; /* Ancho del icono */
 }
 
+@media (max-width: 480px) {
+  .h-3.w-3 {
+    height: 0.7rem;
+    width: 0.7rem;
+  }
+}
+
 /* Separador entre la lista de items y el subtotal/botones */
 .mt-4.pt-3.border-t.border-gray-200 {
   margin-top: 1.3rem; 
   padding-top: 1.3rem; 
   border-top: 1px solid #a3b4d1; 
+}
+
+@media (max-width: 480px) {
+  .mt-4.pt-3.border-t.border-gray-200 {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
 }
 
 /* Contenedor del subtotal */
@@ -1624,11 +1967,29 @@ label:hover {
   margin-bottom: 1rem; 
 }
 
+@media (max-width: 480px) {
+  .flex.justify-between.mb-4 {
+    margin-bottom: 0.75rem;
+  }
+}
+
 /* Texto "Subtotal" */
 .text-sm.font-medium {
   font-size: 1.2rem; 
   font-weight: 500; 
   color: #4b4b4b; 
+}
+
+@media (max-width: 640px) {
+  .text-sm.font-medium {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-sm.font-medium {
+    font-size: 1rem;
+  }
 }
 
 /* Precio del subtotal */
@@ -1644,9 +2005,6 @@ label:hover {
   gap: 0.5rem;
 }
 
-
-
-
 .bg-\[\#e3ebf3\].text-black.hover\:bg-\[\#a6b7d1\].transition-colors:hover {
   color: white !important; 
 }
@@ -1654,28 +2012,82 @@ label:hover {
   color: white !important; 
 }
 
-
 .flex-1.border.border-gray-300.px-3.py-2.text-sm.focus\:outline-none.focus\:border-\[\#a384a3\] {
   color: black !important;
 }
 
 .inline-block.px-8.py-3.border.border-black.text-black.hover\:bg-\[\#a6b7d1\].hover\:text-white.transition-colors {
   border-color: #8d9aad !important; 
-
-
   background-color: #e7f0f8d5 !important; 
-
   color: #717c8f !important; 
-
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .inline-block.px-8.py-3.border.border-black.text-black.hover\:bg-\[\#a6b7d1\].hover\:text-white.transition-colors:hover {
   background-color: #a6b7d1 !important; 
-
   color: white !important; 
   border-color: #a6b7d1 !important; 
 }
+
+/* Botones responsivos */
+.w-full.py-2.px-4.bg-\[\#a384a3\].text-white.text-center.text-sm.font-medium.hover\:bg-\[\#8a6d8a\].transition-colors {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: #a384a3;
+  color: white;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.w-full.py-2.px-4.bg-\[\#a384a3\].text-white.text-center.text-sm.font-medium.hover\:bg-\[\#8a6d8a\].transition-colors:hover {
+  background-color: #8a6d8a;
+}
+
+.w-full.py-2.px-4.border.border-black.text-black.text-sm.font-medium.hover\:bg-black.hover\:text-white.transition-colors {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid black;
+  color: black;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.w-full.py-2.px-4.border.border-black.text-black.text-sm.font-medium.hover\:bg-black.hover\:text-white.transition-colors:hover {
+  background-color: black;
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .w-full.py-2.px-4.bg-\[\#a384a3\].text-white.text-center.text-sm.font-medium.hover\:bg-\[\#8a6d8a\].transition-colors,
+  .w-full.py-2.px-4.border.border-black.text-black.text-sm.font-medium.hover\:bg-black.hover\:text-white.transition-colors {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .w-full.py-2.px-4.bg-\[\#a384a3\].text-white.text-center.text-sm.font-medium.hover\:bg-\[\#8a6d8a\].transition-colors,
+  .w-full.py-2.px-4.border.border-black.text-black.text-sm.font-medium.hover\:bg-black.hover\:text-white.transition-colors {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

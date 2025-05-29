@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import { Search, X, User, LogIn, UserPlus } from "lucide-react"
+import { Search, X, User, LogIn, UserPlus } from 'lucide-react'
 import { useCart } from "@/context/CartContext"
 import Image from "next/image"
 import { mockProducts } from "@/data/products" 
@@ -41,6 +41,8 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
   const handleNavigation = (page: string, e: React.MouseEvent) => {
     e.preventDefault()
     setCurrentPage(page)
+    // Cerrar el menú móvil después de navegar
+    setIsMenuOpen(false)
   }
 
   const handleProductClick = (slug: string, e: React.MouseEvent) => {
@@ -199,95 +201,106 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
                 )}
               </button>
 
-              {/* Vista previa del carrito */}
-              {isCartOpen && (
-                <div className="absolute right-0 top-full mt-2 w-80 bg-white shadow-lg z-50 border border-gray-200 rounded-sm">
-                  <div className="p-4">
-                    <div className="flex justify-between items-center mb-4">
-                      <h3 className="text-sm font-medium">TU CARRITO ({itemCount})</h3>
-                      <button onClick={() => setIsCartOpen(false)} className="text-gray-500 hover:text-gray-700">
-                        <X className="h-4 w-4" />
+
+
+
+
+
+{/* Vista previa del carrito */}
+{isCartOpen && (
+  <div className="absolute right-0 top-full mt-2 w-80 bg-white shadow-lg z-50 border border-gray-200 rounded-sm">
+    <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-sm font-medium">TU CARRITO ({itemCount})</h3>
+        <button onClick={() => setIsCartOpen(false)} className="text-gray-500 hover:text-gray-700">
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+
+      {items.length === 0 ? (
+        <p className="text-sm text-gray-500 text-center py-4">Tu carrito está vacío</p>
+      ) : (
+        <>
+          <div className="max-h-60 overflow-y-auto">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className="flex items-center py-3 border-b border-gray-100 last:border-0"
+              >
+                <div className="w-16 h-16 flex-shrink-0 overflow-hidden border border-gray-100">
+                  <Image
+                    src={item.imageUrl || "/placeholder.svg"}
+                    alt={item.name}
+                    width={64}
+                    height={64}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="ml-3 flex-1">
+                  <h4 className="text-xs font-medium truncate">{item.name}</h4>
+                  <div className="flex items-center mt-1">
+                    <div className="flex items-center border border-gray-200 rounded-sm">
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="px-1 py-0.5 text-gray-500 hover:text-black text-xs"
+                      >
+                        -
+                      </button>
+                      <span className="px-2 text-xs">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="px-1 py-0.5 text-gray-500 hover:text-black text-xs"
+                      >
+                        +
                       </button>
                     </div>
-
-                    {items.length === 0 ? (
-                      <p className="text-sm text-gray-500 text-center py-4">Tu carrito está vacío</p>
-                    ) : (
-                      <>
-                        <div className="max-h-60 overflow-y-auto">
-                          {items.map((item) => (
-                            <div
-                              key={item.id}
-                              className="flex items-center py-3 border-b border-gray-100 last:border-0"
-                            >
-                              <div className="w-16 h-16 flex-shrink-0 overflow-hidden border border-gray-100">
-                                <Image
-                                  src={item.imageUrl || "/placeholder.svg"}
-                                  alt={item.name}
-                                  width={64}
-                                  height={64}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="ml-3 flex-1">
-                                <h4 className="text-xs font-medium">{item.name}</h4>
-                                <div className="flex items-center mt-1">
-                                  <div className="flex items-center border border-gray-200 rounded-sm">
-                                    <button
-                                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                      className="px-1 py-0.5 text-gray-500 hover:text-black text-xs"
-                                    >
-                                      -
-                                    </button>
-                                    <span className="px-2 text-xs">{item.quantity}</span>
-                                    <button
-                                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                      className="px-1 py-0.5 text-gray-500 hover:text-black text-xs"
-                                    >
-                                      +
-                                    </button>
-                                  </div>
-                                  <span className="ml-auto text-xs font-medium">
-                                    ${(item.price * item.quantity).toLocaleString()}
-                                  </span>
-                                </div>
-                              </div>
-                              <button
-                                onClick={() => removeFromCart(item.id)}
-                                className="ml-2 text-gray-400 hover:text-gray-600"
-                              >
-                                <X className="h-3.5 w-3.5" />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="mt-4 pt-3 border-t border-gray-200">
-                          <div className="flex justify-between mb-4">
-                            <span className="text-sm font-medium">Subtotal</span>
-                            <span className="text-sm font-medium">${subtotal.toLocaleString()}</span>
-                          </div>
-                          <div className="flex flex-col space-y-2">
-                            <a
-                              href="#"
-                              onClick={(e) => {
-                                handleNavigation("carrito", e)
-                                setIsCartOpen(false)
-                              }}
-                              className="w-full py-2 px-4 bg-[#a384a3] text-white text-center text-sm font-medium hover:bg-[#8a6d8a] transition-colors"
-                            >
-                              Ver carrito
-                            </a>
-                            <button className="w-full py-2 px-4 border border-black text-black text-sm font-medium hover:bg-black hover:text-white transition-colors">
-                              Finalizar compra
-                            </button>
-                          </div>
-                        </div>
-                      </>
-                    )}
+                    <span className="ml-auto text-xs font-medium">
+                      ${(item.price * item.quantity).toLocaleString()}
+                    </span>
                   </div>
                 </div>
-              )}
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="ml-2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-4 pt-3 border-t border-gray-200">
+            <div className="flex justify-between mb-4">
+              <span className="text-sm font-medium">Subtotal</span>
+              <span className="text-sm font-medium">${subtotal.toLocaleString()}</span>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <a
+                href="#"
+                onClick={(e) => {
+                  handleNavigation("carrito", e)
+                  setIsCartOpen(false)
+                }}
+                className="w-full py-2 px-4 bg-[#a384a3] text-white text-center text-sm font-medium hover:bg-[#8a6d8a] transition-colors"
+              >
+                Ver carrito
+              </a>
+              <button className="w-full py-2 px-4 border border-black text-black text-sm font-medium hover:bg-black hover:text-white transition-colors">
+                Finalizar compra
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+)}
+
+
+
+
+
+
 
               {/* Notificación de producto añadido */}
               {showNotification && lastAddedItem && (
@@ -379,7 +392,6 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
             </div>
           </div>
 
-          {/* Input en móvil cuando se activa */}
           {isMobileSearchVisible && (
             <div className="w-full mt-3 md:hidden" ref={searchRef}>
               <input
