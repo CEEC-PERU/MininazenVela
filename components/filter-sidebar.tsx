@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { X } from "lucide-react"
+import { X } from 'lucide-react'
 import { CollapsibleFilter } from "@/components/ui/collapsible-filter"
 import { Slider } from "@/components/ui/slider"
 
@@ -106,7 +106,6 @@ export function FilterSidebar({ onFilterChange, minPrice, maxPrice }: FilterSide
         }),
       )
 
-      // Actualizar los filtros activos
       setActiveFilters((prevFilters) => {
         const newFilters = { ...prevFilters }
 
@@ -152,51 +151,61 @@ export function FilterSidebar({ onFilterChange, minPrice, maxPrice }: FilterSide
     Object.keys(activeFilters).length > 0 || priceRange[0] !== minPrice || priceRange[1] !== maxPrice
 
   return (
-    <div className="w-full text-black"> 
-      <h2 className="mb-4 text-lg font-medium">FILTRADO POR</h2>
+    <div className="filter-sidebar-wrapper" style={{ padding: 0, margin: 0, height: 'auto' }}>
+      <div className="filter-sidebar-container w-full text-black" style={{ padding: 0, margin: 0, height: 'auto' }}> 
+        <h2 className="filter-main-title text-lg font-medium">FILTRADO POR</h2>
 
-      <CollapsibleFilter title="Precio" defaultOpen={true}>
-        <div className="px-1">
-          <Slider
-            min={minPrice}
-            max={maxPrice}
-            step={1}
-            value={priceRange}
-            onValueChange={handlePriceChange}
-            className="mb-6"
-          />
-          <div className="flex items-center justify-between">
-            <span className="text-sm">${priceRange[0]}</span>
-            <span className="text-sm">${priceRange[1]}</span>
-          </div>
-        </div>
-      </CollapsibleFilter>
-
-      {filterCategories.map((category) => (
-        <CollapsibleFilter key={category.name} title={category.name}>
-          <div className="space-y-2">
-            {category.options.map((option) => (
-              <label key={option.id} className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="mr-2"
-                  checked={option.checked}
-                  onChange={(e) => handleCheckboxChange(category.name, option.id, e.target.checked)}
+        <div className="filter-section-spacing">
+          <CollapsibleFilter title="Precio" defaultOpen={true}>
+            <div className="filter-collapsible-content">
+              <div className="price-slider-container">
+                <Slider
+                  min={minPrice}
+                  max={maxPrice}
+                  step={1}
+                  value={priceRange}
+                  onValueChange={handlePriceChange}
+                  className="mb-6"
                 />
-                <span className="text-sm">{option.label}</span>
-              </label>
-            ))}
-          </div>
-        </CollapsibleFilter>
-      ))}
-
-      {hasActiveFilters && (
-        <div className="mt-4 flex items-center text-sm text-amber-800">
-          <button onClick={clearFilters} className="flex items-center">
-            Borrar filtros <X className="ml-1 h-4 w-4" />
-          </button>
+                <div className="price-range-display">
+                  <span className="text-sm">${priceRange[0]}</span>
+                  <span className="text-sm">${priceRange[1]}</span>
+                </div>
+              </div>
+            </div>
+          </CollapsibleFilter>
         </div>
-      )}
+
+        {filterCategories.map((category) => (
+          <div key={category.name} className="filter-section-spacing">
+            <CollapsibleFilter title={category.name}>
+              <div className="filter-collapsible-content">
+                <div className="filter-options-container">
+                  {category.options.map((option) => (
+                    <label key={option.id} className="filter-option-label">
+                      <input
+                        type="checkbox"
+                        className="filter-checkbox"
+                        checked={option.checked}
+                        onChange={(e) => handleCheckboxChange(category.name, option.id, e.target.checked)}
+                      />
+                      <span className="filter-label text-sm">{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </CollapsibleFilter>
+          </div>
+        ))}
+
+        {hasActiveFilters && (
+          <div className="clear-filters-container">
+            <button onClick={clearFilters} className="clear-filters-button">
+              Borrar filtros <X className="clear-filters-icon" />
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
