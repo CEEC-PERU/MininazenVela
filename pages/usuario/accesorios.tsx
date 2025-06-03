@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { FilterSidebar } from "@/components/filter-sidebar" 
+import { FilterSidebar } from "@/components/filter-sidebar"
 import { ProductGrid } from "@/components/product-grid"
-import { PageHeader } from "@/components/page-header" 
+import { PageHeader } from "@/components/page-header"
 
 const mockProducts = [
   {
@@ -246,7 +246,8 @@ const mockProducts = [
     colocar: "individual-oval",
     estilo: "concha-de-caracol-2",
     tamano: "rectangulo-largo",
-  }, {
+  },
+  {
     id: "15",
     name: "Shell Candle Set",
     price: 39.99,
@@ -368,14 +369,13 @@ export default function AccesoriosPage() {
   return (
     <main className="text-black">
       <PageHeader title="ACCESORIOS" backgroundImage={headerImage} />
-      <div className="container mx-auto px-4 py-12 main-content-area">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-[250px_1fr]">
-        
-          <div className="md:sticky md:top-[64px] md:self-start h-[calc(100vh-64px)] overflow-y-auto pr-4 bg-white">
+      <div className="container mx-auto px-4 py-12 mobile-main-container">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[250px_1fr] mobile-layout-grid">
+          <div className="md:sticky md:top-[64px] md:self-start md:h-[calc(100vh-64px)] md:overflow-y-auto pr-4 bg-white mobile-filter-section">
             <FilterSidebar onFilterChange={handleFilterChange} minPrice={5} maxPrice={25} />
           </div>
 
-          <div>
+          <div className="mobile-products-section">
             {filteredProducts.length === 0 ? (
               <div className="mt-8 text-center">
                 <p className="text-lg">No se encontraron productos que coincidan con los filtros seleccionados.</p>
@@ -403,8 +403,7 @@ export default function AccesoriosPage() {
                   <button
                     key={index}
                     onClick={() => goToPage(index + 1)}
-                    className={`pagination-number ${currentPage === index + 1 ? "active" : ""
-                      }`}
+                    className={`pagination-number ${currentPage === index + 1 ? "active" : ""}`}
                   >
                     {index + 1}
                   </button>

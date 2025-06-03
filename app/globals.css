@@ -1005,7 +1005,21 @@ body {
 
 
 
-/* filtros - Ultra-optimizado SIN espacios en blanco */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* filtros */
 .filter-section {
   border-bottom: 1px solid #e5e7eb;
   padding: 0.75rem 0;
@@ -1155,6 +1169,8 @@ body {
     height: auto;
     padding: 0;
     margin: 0;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1163,6 +1179,8 @@ body {
     padding: 0;
     margin: 0;
     height: fit-content;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1171,6 +1189,8 @@ body {
     padding: 0;
     margin: 0;
     height: fit-content;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1309,7 +1329,7 @@ body {
   }
 }
 
-/* Botón de limpiar filtros - MÍNIMO ESPACIO */
+/* Botón de limpiar filtros  */
 .clear-filters-container {
   margin-top: 0.3rem;
   display: flex;
@@ -1324,6 +1344,8 @@ body {
   .clear-filters-container {
     margin-top: 0.2rem;
     font-size: 0.8rem;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1331,6 +1353,8 @@ body {
   .clear-filters-container {
     margin-top: 0.1rem;
     font-size: 0.75rem;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1397,12 +1421,12 @@ body {
   .filter-checkbox {
     transform: scale(1.1);
   }
-  
+
   .filter-option-label {
     min-height: 1.6rem;
     padding: 0.15rem 0;
   }
-  
+
   .clear-filters-button {
     min-height: 1.6rem;
     padding: 0.2rem 0;
@@ -1413,12 +1437,12 @@ body {
   .filter-checkbox {
     transform: scale(1.05);
   }
-  
+
   .filter-option-label {
     min-height: 1.4rem;
     padding: 0.1rem 0;
   }
-  
+
   .clear-filters-button {
     min-height: 1.4rem;
     padding: 0.15rem 0;
@@ -1462,6 +1486,8 @@ body {
     margin: 0;
     height: fit-content;
     min-height: 0;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1472,6 +1498,8 @@ body {
     height: fit-content;
     min-height: 0;
     max-height: none;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1482,6 +1510,8 @@ body {
     height: fit-content;
     min-height: 0;
     max-height: none;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -1532,7 +1562,7 @@ body {
   .filter-sidebar-wrapper::after {
     display: none;
   }
-  
+
   .filter-sidebar-container::after {
     display: none;
   }
@@ -1542,21 +1572,11 @@ body {
   .filter-sidebar-wrapper::after {
     display: none;
   }
-  
+
   .filter-sidebar-container::after {
     display: none;
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 /*  cuadrícula de productos */
 .product-grid {
@@ -1606,6 +1626,73 @@ body {
   margin-top: 0.25rem;
   font-size: 0.875rem;
 }
+
+/*  PANTALLAS DE CELULAR (480px y menos) */
+@media (max-width: 480px) {
+  .mobile-main-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .mobile-layout-grid {
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .mobile-filter-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+
+  .mobile-products-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .mobile-filter-no-space {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: fit-content !important;
+    overflow: visible !important;
+  }
+
+  .mobile-filter-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .mobile-clear-filters {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .filter-sidebar-wrapper {
+    max-height: fit-content !important;
+    overflow: visible !important;
+  }
+}
+
+
+
+
+
+
+
 
 
 
