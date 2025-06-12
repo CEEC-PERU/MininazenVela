@@ -1,10 +1,9 @@
 "use client"
 
 import type * as React from "react"
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, ChevronDown, BarChart3 } from "lucide-react"
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, ChevronDown, BarChart3 } from 'lucide-react'
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-
 import {
   Sidebar,
   SidebarContent,
@@ -47,14 +46,17 @@ const navigationItems = [
     url: "/admin/reportes",
     icon: BarChart3,
   },
-  
 ]
 
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar 
+      variant="inset" 
+      collapsible="offcanvas" 
+      {...props}
+    >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
