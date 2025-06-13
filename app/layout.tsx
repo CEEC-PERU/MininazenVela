@@ -25,4 +25,3 @@ export default function RootLayout({
   )
 }
 
-// ordenar esto x por header funcionales de detail x accesorios
